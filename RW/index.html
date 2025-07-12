@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReWear - Community Clothing Exchange</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="header-left">
+                <button class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="logo">
+                    <h1>ReWear</h1>
+                </div>
+            </div>
+            
+            <!-- Side Menu -->
+            <nav class="side-menu" id="side-menu">
+                <div class="menu-header">
+                    <h2>Menu</h2>
+                    <button class="close-menu" id="close-menu">&times;</button>
+                </div>
+                <ul class="menu-items">
+                    <li><a href="#" onclick="showPage('landing')">🏠 Home</a></li>
+                    <li><a href="#" onclick="showPage('browse')">👕 Browse Items</a></li>
+                    <li><a href="#" onclick="showPage('add-item')">➕ List Item</a></li>
+                    <li><a href="#" onclick="showPage('dashboard')">📊 Dashboard</a></li>
+                </ul>
+            </nav>
+
+            <!-- Menu Overlay -->
+            <div class="menu-overlay" id="menu-overlay"></div>
+            
+            <div class="header-right">
+                <div class="user-profile" id="user-profile">
+                    <div class="profile-circle">
+                        <span id="user-initials">G</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <div class="profile-info">
+                            <span id="user-name">Guest</span>
+                            <span class="points" id="user-points">0 Points</span>
+                        </div>
+                        <div class="profile-menu">
+                            <button onclick="showPage('dashboard')">Dashboard</button>
+                            <button onclick="logout()">Logout</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="login-btn" id="login-btn" onclick="showPage('login')">Login</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login/Signup Page -->
+    <div id="auth-page" class="page">
+        <div class="auth-container">
+            <div class="auth-form">
+                <h2 id="auth-title">Login to ReWear</h2>
+                <form id="auth-form">
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+                    <div class="role-selection" id="role-selection">
+                        <label>
+                            <input type="radio" name="role" value="user" checked> Login as User
+                        </label>
+                        <label>
+                            <input type="radio" name="role" value="admin"> Login as Admin
+                        </label>
+                    </div>
+                    <button type="submit" id="auth-submit">Login</button>
+                </form>
+                <p class="auth-switch">
+                    <span id="auth-switch-text">Don't have an account?</span>
+                    <a href="#" id="auth-switch-link" onclick="toggleAuthMode()">Sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Landing Page -->
+    <div id="landing-page" class="page">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Welcome to ReWear</h1>
+                    <p>Join our community clothing exchange! Swap unused clothes, earn points, and promote sustainable fashion.</p>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search for clothing items..." id="hero-search">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                    <div class="cta-buttons">
+                        <button class="btn-primary" onclick="showPage('browse')">Start Swapping</button>
+                        <button class="btn-secondary" onclick="showPage('browse')">Browse Items</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="container">
+                <h2>Categories</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterByCategory('tops')">
+                        <div class="category-icon">👕</div>
+                        <h3>Tops</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('bottoms')">
+                        <div class="category-icon">👖</div>
+                        <h3>Bottoms</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('dresses')">
+                        <div class="category-icon">👗</div>
+                        <h3>Dresses</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('outerwear')">
+                        <div class="category-icon">🧥</div>
+                        <h3>Outerwear</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('accessories')">
+                        <div class="category-icon">👜</div>
+                        <h3>Accessories</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('shoes')">
+                        <div class="category-icon">👠</div>
+                        <h3>Shoes</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Items -->
+        <section class="featured-items">
+            <div class="container">
+                <h2>Product Listings</h2>
+                <div class="items-carousel" id="featured-carousel">
+                    <!-- Featured items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="impact-section">
+            <div class="container">
+                <h2>Our Impact</h2>
+                <div class="impact-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">1,523</div>
+                        <div class="stat-label">Items Exchanged</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">892</div>
+                        <div class="stat-label">Happy Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2.5T</div>
+                        <div class="stat-label">CO2 Saved (kg)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Browse Items Page -->
+    <div id="browse-page" class="page">
+        <div class="container">
+            <h2>Browse Items</h2>
+            <div class="filters">
+                <select id="category-filter">
+                    <option value="">All Categories</option>
+                    <option value="tops">Tops</option>
+                    <option value="bottoms">Bottoms</option>
+                    <option value="dresses">Dresses</option>
+                    <option value="outerwear">Outerwear</option>
+                    <option value="accessories">Accessories</option>
+                </select>
+                <select id="size-filter">
+                    <option value="">All Sizes</option>
+                    <option value="xs">XS</option>
+                    <option value="s">S</option>
+                    <option value="m">M</option>
+                    <option value="l">L</option>
+                    <option value="xl">XL</option>
+                </select>
+            </div>
+            <div class="items-grid" id="items-grid">
+                <!-- Items will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Item Detail Page -->
+    <div id="item-detail-page" class="page">
+        <div class="container">
+            <div class="item-detail-content">
+                <div class="item-images">
+                    <div class="main-image" id="main-image">
+                        <img src="https://images.pexels.com/photos/1336873/pexels-photo-1336873.jpeg" alt="Item">
+                    </div>
+                </div>
+                <div class="item-info">
+                    <h2 id="item-title">Vintage Denim Jacket</h2>
+                    <div class="item-meta">
+                        <span class="category" id="item-category">Outerwear</span>
+                        <span class="size" id="item-size">Size: M</span>
+                        <span class="condition" id="item-condition">Condition: Good</span>
+                    </div>
+                    <div class="points-value">
+                        <span id="item-points">50 Points</span>
+                    </div>
+                    <div class="description">
+                        <h3>Add Product Description</h3>
+                        <p id="item-description">Classic vintage denim jacket in great condition. Perfect for layering!</p>
+                    </div>
+                    <div class="uploader-info">
+                        <h3>Listed by</h3>
+                        <div class="uploader">
+                            <span id="uploader-name">Sarah M.</span>
+                            <span class="rating">⭐⭐⭐⭐⭐</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn-primary" onclick="requestSwap()">Request Swap</button>
+                        <button class="btn-secondary redeem-btn" onclick="redeemWithPoints()">Redeem with Points</button>
+                    </div>
+                    <div class="availability">
+                        <span class="status available">Available/Swap</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Previous Listings Section -->
+            <div class="previous-listings">
+                <h3>Previous Listings:</h3>
+                <div class="previous-items-grid" id="previous-items">
+                    <!-- Previous items will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Item Page -->
+    <div id="add-item-page" class="page">
+        <div class="container">
+            <h2>List New Item</h2>
+            <form class="add-item-form" id="add-item-form">
+                <div class="form-section">
+                    <h3>Upload Images</h3>
+                    <div class="image-upload">
+                        <input type="file" id="item-images" multiple accept="image/*">
+                        <label for="item-images" class="upload-label">
+                            📷 Add Images
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Item Details</h3>
+                    <div class="form-row">
+                        <input type="text" id="item-name" placeholder="Item Title" required>
+                    </div>
+                    <div class="form-row">
+                        <textarea id="item-desc" placeholder="Add Product Description" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <select id="item-category" required>
+                            <option value="">Select Category</option>
+                            <option value="tops">Tops</option>
+                            <option value="bottoms">Bottoms</option>
+                            <option value="dresses">Dresses</option>
+                            <option value="outerwear">Outerwear</option>
+                            <option value="accessories">Accessories</option>
+                        </select>
+                        <select id="item-size" required>
+                            <option value="">Select Size</option>
+                            <option value="xs">XS</option>
+                            <option value="s">S</option>
+                            <option value="m">M</option>
+                            <option value="l">L</option>
+                            <option value="xl">XL</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <select id="item-condition" required>
+                            <option value="">Select Condition</option>
+                            <option value="excellent">Excellent</option>
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                        </select>
+                        <input type="number" id="item-price" placeholder="Points Value" min="10" max="500" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="item-tags" placeholder="Tags (comma separated)">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Submit Item</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Dashboard -->
+    <div id="dashboard-page" class="page">
+        <div class="container">
+            <div class="dashboard-header">
+                <h2>User Dashboard</h2>
+            </div>
+            
+            <div class="dashboard-layout">
+                <!-- Profile Section -->
+                <div class="profile-section">
+                    <div class="profile-circle-large">
+                        <span id="dashboard-initials">JD</span>
+                    </div>
+                    <div class="profile-details">
+                        <div class="detail-row">
+                            <span class="label">Name:</span>
+                            <span id="profile-name">John Doe</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Email:</span>
+                            <span id="profile-email">john@example.com</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Points:</span>
+                            <span id="profile-points" class="points">150 Points</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Member Since:</span>
+                            <span id="member-since">January 2024</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Large Info Box -->
+                    <div class="info-box">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-content">
+                            <p>• Listed "Vintage Denim Jacket" - 50 points</p>
+                            <p>• Completed swap with Sarah M.</p>
+                            <p>• Earned 25 bonus points</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Listings Section -->
+                <div class="listings-section">
+                    <h3>My Listings</h3>
+                    <div class="listings-grid" id="user-items">
+                        <!-- User's items will be populated here -->
+                    </div>
+                </div>
+
+                <!-- My Purchases Section -->
+                <div class="purchases-section">
+                    <h3>My Purchases</h3>
+                    <div class="purchases-grid" id="user-purchases">
+                        <!-- User's purchases will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-page" class="page">
+        <div class="container">
+            <h2>Admin Dashboard</h2>
+            
+            <div class="admin-grid">
+                <div class="admin-card">
+                    <h3>Pending Approvals</h3>
+                    <div id="pending-items" class="pending-items">
+                        <!-- Pending items will be populated here -->
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Platform Statistics</h3>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number">245</span>
+                            <span class="stat-label">Total Users</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">1,523</span>
+                            <span class="stat-label">Items Listed</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">892</span>
+                            <span class="stat-label">Successful Swaps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Recent Activity</h3>
+                    <div id="recent-activity" class="activity-list">
+                        <!-- Recent activity will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
