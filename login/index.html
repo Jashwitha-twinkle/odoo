@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 60px 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+            max-width: 90%;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 50%;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #e0e0e0;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        .input-field:focus {
+            background-color: #d0d0d0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: #999;
+        }
+
+        .input-field option {
+            color: #333;
+            background-color: white;
+            padding: 10px;
+        }
+
+        .input-field option:first-child {
+            color: #999;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .btn-login {
+            background-color: #6A0DAD;
+            color: white;
+        }
+
+        .btn-login:hover {
+            background-color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+            color: black;
+        }
+
+        .btn-signup {
+            background-color: #6A0DAD;
+            color: white;
+        }
+
+        .btn-signup:hover {
+            background-color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+            color: black;
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .logo {
+            animation: fadeIn 1s ease-out 0.2s both;
+        }
+
+        .input-group {
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        .btn {
+            animation: fadeIn 0.8s ease-out 0.6s both;
+        }
+
+        /* Ripple effect */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+        #logo img {
+    width: 250px;
+    height: auto;
+    padding-top: 10px;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo"></div>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <select class="input-field" id="userType" required>
+                    <option value="">Select Login Type</option>
+                    <option value="admin">Login as Admin</option>
+                    <option value="user">Login as User</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <input type="email" class="input-field" placeholder="Email" required>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" class="input-field" placeholder="Password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-login"><a href=""</button>
+            <button type="button" class="btn btn-signup" onclick="showSignup()">Sign up</button>
+        </form>
+        <div id="logo">
+            <img src="screen.jpg" alt="">
+        </div>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userType = document.getElementById('userType').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            
+            // Simple validation
+            if (userType && email && password) {
+                // Add loading state
+                const loginBtn = this.querySelector('.btn-login');
+                loginBtn.textContent = 'Logging in...';
+                loginBtn.disabled = true;
+                
+                // Simulate login process
+                setTimeout(() => {
+                    alert(`Login successful as ${userType.charAt(0).toUpperCase() + userType.slice(1)}!`);
+                    loginBtn.textContent = 'Login';
+                    loginBtn.disabled = false;
+                    
+                    // Reset form
+                    this.reset();
+                }, 1500);
+            } else {
+                alert('Please fill in all fields including selecting a login type.');
+            }
+        });
+
+        // Handle signup button
+        function showSignup() {
+            const signupBtn = document.querySelector('.btn-signup');
+            signupBtn.textContent = 'Creating account...';
+            signupBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Redirecting to signup page...');
+                signupBtn.textContent = 'Sign up';
+                signupBtn.disabled = false;
+            }, 1000);
+        }
+
+        // Add floating animation to logo
+        const logo = document.querySelector('.logo');
+        setInterval(() => {
+            logo.style.transform = 'translateY(-5px)';
+            setTimeout(() => {
+                logo.style.transform = 'translateY(0)';
+            }, 1000);
+        }, 3000);
+
+        // Add input field animations
+        document.querySelectorAll('.input-field').forEach(field => {
+            field.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            field.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Handle dropdown change
+        document.getElementById('userType').addEventListener('change', function() {
+            if (this.value) {
+                this.style.color = '#333';
+            } else {
+                this.style.color = '#999';
+            }
+        });
+    </script>
+</body>
+</html>
