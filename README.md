@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ReWear – Community Clothing Exchange</title>
+  
 </head>
 <body>
 
